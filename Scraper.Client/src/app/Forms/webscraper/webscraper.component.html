@@ -1,0 +1,66 @@
+
+<div class="col-md-10 offset-md-1">
+  <h3>Scraper</h3>
+<form class="row g-3" [formGroup]="ScraperForm" (ngSubmit)="onSubmit()">
+  <div class="col-md-4">
+    <label>Keyword</label>
+    <input type="text" formControlName="SearchKeyword" name="keyword" class="form-control" >
+  </div>
+  <div class="col-md-4">
+    <label >Search Url</label>
+    <input type="text" formControlName="SearchUrl" name="SearchUrl" class="form-control" >
+  </div>
+ 
+  <div class="col-md-4">
+    <label >Results Count</label>
+    <input type="text" formControlName="MaxCount" name="MaxCount" class="form-control" >
+  </div>
+   
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit" >Submit</button>
+  </div>
+</form>  
+
+</div>
+
+<div *ngIf="showTable" class="col-md-10 offset-md-1">
+   <div class="mb-3 mt-3">
+    <strong>Search Keyword:</strong> {{ searchKeyword }}<br>
+    <strong>Position:</strong> {{ positions }}  
+  </div>
+
+  <div  class="offset-md-1">
+    <h4>Scraped Results</h4>
+  
+    <table class="table table-bordered table-striped table-hover mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Keyword</th>
+          <th>URL</th>
+          <th>Position</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of apiResponse; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ result.searchKeyword }}</td>
+          <td>{{ result.searchUrl }}</td>
+          <td>{{ result.position }}</td>
+          <td>{{ result.date | date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="scrapedResults.length === 0" class="alert alert-info">
+      No data available. Please run the scraper.
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
